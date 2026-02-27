@@ -1,6 +1,45 @@
-local x={108,111,97,100,115,116,114,105,110,103,40,103,97,109,101,58,72,116,116,112,71,101,116,40,34,104,116,116,112,115,58,47,47,114,97,119,46,103,105,116,104,117,98,117,115,101,114,99,111,110,116,101,110,116,46,99,111,109,47,100,97,118,105,100,115,101,98,97,115,51,52,56,45,104,117,98,47,84,101,120,116,49,52,47,114,101,102,115,47,104,101,97,100,115,47,109,97,105,110,47,84,101,120,116,49,52,34,44,32,116,114,117,101,41,41,40,41}
-local y=""
-for i=1,#x do
-y=y..string.char(x[i])
+-- evitar duplicado
+if getgenv().SBS_BUILD_YOUR_ESCAPE then return end
+getgenv().SBS_BUILD_YOUR_ESCAPE = true
+
+local URL = "https://raw.githubusercontent.com/davidsebas348-hub/Text14/refs/heads/main/Text14"
+
+-- registrar SIEMPRE el auto execute
+task.spawn(function()
+    if queue_on_teleport then
+        queue_on_teleport('loadstring(game:HttpGet("'..URL..'"))()')
+    end
+end)
+
+repeat task.wait() until game:IsLoaded()
+
+local condiciones = 0
+local player = game:GetService("Players").LocalPlayer
+
+if game.PlaceId == 87141336196355 then condiciones += 10 end
+
+if game.Workspace:FindFirstChild("Escape", true) then condiciones += 1 end
+if game.Workspace:FindFirstChild("Lobby", true) then condiciones += 1 end
+if game.Workspace:FindFirstChild("PanelSpawn", true) then condiciones += 1 end
+if game.Workspace:FindFirstChild("Points", true) then condiciones += 1 end
+if game.Workspace:FindFirstChild("SafeZones", true) then condiciones += 1 end
+if game.Workspace:FindFirstChild("Wedges", true) then condiciones += 1 end
+
+if game.ReplicatedStorage:FindFirstChild("ActivateGear", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("EquipGear", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("FinishQuest", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("GuardBatonSwing", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("GuardFadeScreen", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("GuardFaster", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("KnockUI", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("PrisonerEscaped", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("PromptGamepass", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("RequestCancel", true) then condiciones += 1 end
+if game.ReplicatedStorage:FindFirstChild("RequestExtend", true) then condiciones += 1 end
+
+local ls = player:FindFirstChild("leaderstats")
+if ls and ls:FindFirstChild("Escapes") then condiciones += 1 end
+
+if condiciones >= 10 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/davidsebas348-hub/Text14/refs/heads/main/Text14", true))()
 end
-(loadstring(y))()
