@@ -1,15 +1,14 @@
--- evitar duplicado
-if getgenv().SBS_BUILD_YOUR_ESCAPE then return end
-getgenv().SBS_BUILD_YOUR_ESCAPE = true
+-- evitar duplicado + auto execute
+if getgenv().SBS_HUB_BUILD_YOUR_ESCAPE then return end
+getgenv().SBS_HUB_BUILD_YOUR_ESCAPE = true
 
 local URL = "https://raw.githubusercontent.com/davidsebas348-hub/Text14/refs/heads/main/Text14"
 
--- registrar SIEMPRE el auto execute
-task.spawn(function()
-    if queue_on_teleport then
-        queue_on_teleport('loadstring(game:HttpGet("'..URL..'"))()')
-    end
-end)
+-- auto execute al teleport / rejoin
+if queue_on_teleport then
+    queue_on_teleport('loadstring(game:HttpGet("'..URL..'"))()')
+end
+
 
 repeat task.wait() until game:IsLoaded()
 
